@@ -4,7 +4,7 @@
 // - GET /user_uploads
 // - DELETE /user_uploads/{job_id}
 
-const API_BASE = import.meta.env.VITE_API_BASE || "http://localhost:8000";
+const API_BASE = import.meta.env.VITE_API_BASE || "/api";
 
 function authHeader() {
     const token = localStorage.getItem("access_token");

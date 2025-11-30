@@ -1,4 +1,5 @@
-const API_URL = "http://localhost:8000";
+const API_BASE = import.meta.env.VITE_API_BASE || "/api";
+
 const parseFastApiError = async (response) => {
     let data;
     try {
@@ -26,7 +27,7 @@ export const getUsers = async () => {
     const token = localStorage.getItem("access_token");
     if (!token) throw new Error("Access token not found. Please log in.");
 
-    const response = await fetch(`${API_URL}/users`, {
+    const response = await fetch(`${API_BASE}/users`, {
         headers: { Authorization: `Bearer ${token}` },
     });
 
@@ -54,7 +55,7 @@ export const registerUser = async (userData) => {
         password: userData.password,
     };
 
-    const response = await fetch(`${API_URL}/users`, {
+    const response = await fetch(`${API_BASE}/users`, {
         method: "POST",
         headers: {
             "Content-Type": "application/json",
@@ -73,7 +74,7 @@ export const registerUser = async (userData) => {
 
 export const loginUser = async (email, password) => {
     try {
-        const response = await fetch(`${API_URL}/log_in`, {
+        const response = await fetch(`${API_BASE}/log_in`, {
             method: "POST",
             headers: {
                 Accept: "application/json",
@@ -110,7 +111,7 @@ export const updateUser = async (userId, updatedData) => {
     const token = localStorage.getItem("access_token");
     if (!token) throw new Error("Access token not found.");
 
-    const response = await fetch(`${API_URL}/users/${userId}`, {
+    const response = await fetch(`${API_BASE}/users/${userId}`, {
         method: "PUT",
         headers: {
             "Content-Type": "application/json",
@@ -143,7 +144,7 @@ export const deleteUser = async (userId) => {
     const token = localStorage.getItem("access_token");
     if (!token) throw new Error("Access token missing.");
 
-    const response = await fetch(`${API_URL}/users/${userId}`, {
+    const response = await fetch(`${API_BASE}/users/${userId}`, {
         method: "DELETE",
         headers: { Authorization: `Bearer ${token}` },
     });
@@ -165,7 +166,7 @@ export const getUserSelectedTopics = async () => {
     }
     const userId = user.id;
 
-    const response = await fetch(`${API_URL}/users/${userId}/selected-topics`, {
+    const response = await fetch(`${API_BASE}/users/${userId}/selected-topics`, {
         method: "GET",
         headers: {
             "Content-Type": "application/json",
@@ -183,7 +184,7 @@ export const getUserSelectedTopics = async () => {
 
 // (Optional) Keep these only if you still use email code flow elsewhere
 export const sendRegisterPasswordCode = async (email) => {
-    const response = await fetch(`${API_URL}/register/send-code`, {
+    const response = await fetch(`${API_BASE}/register/send-code`, {
         method: "POST",
         headers: {
             "Content-Type": "application/json",
@@ -201,7 +202,7 @@ export const sendRegisterPasswordCode = async (email) => {
 };
 
 export const verifyRegisterPasswordCode = async (email, code) => {
-    const response = await fetch(`${API_URL}/register/verify-code`, {
+    const response = await fetch(`${API_BASE}/register/verify-code`, {
         method: "POST",
         headers: {
             "Content-Type": "application/json",

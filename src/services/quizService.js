@@ -1,7 +1,7 @@
-const API_URL = "http://localhost:8000";
+const API_BASE = import.meta.env.VITE_API_BASE || "/api";
 
 export const createQuiz = async ({ jobId, numQuestions = 12, types, topicHint = "" }) => {
-    const resp = await fetch(`${API_URL}/quizzes`, {
+    const resp = await fetch(`${API_BASE}/quizzes`, {
         method: "POST",
         headers: {
             Accept: "application/json",
@@ -25,7 +25,7 @@ export const createQuiz = async ({ jobId, numQuestions = 12, types, topicHint = 
 
 
 export const getRandomJobId = async () => {
-    const resp = await fetch(`${API_URL}/random_upload_id`, {
+    const resp = await fetch(`${API_BASE}/random_upload_id`, {
         method: "GET",
         headers: {
             Accept: "application/json",
